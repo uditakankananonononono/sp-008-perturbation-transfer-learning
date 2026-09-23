@@ -1,0 +1,1 @@
+{"controls_qc_pass_per_condition": {"Co-culture": 18259, "Control": 15186, "IFN\u03b3": 23654}, "note": "execution correction (as SP-007): control cells carry nperts==0; targeting cells require nperts==1"}

@@ -1,0 +1,32 @@
+{
+ "frozen_at_ist": "2026-09-22T02:16:00+05:30",
+ "python": "3.10.12",
+ "platform": "Linux-6.1.158+-x86_64-with-glibc2.35",
+ "packages": {
+  "anndata": "0.11.4",
+  "h5py": "3.16.0",
+  "scikit-learn": "1.7.2",
+  "numpy": "2.2.6",
+  "pandas": "2.3.3",
+  "scipy": "1.15.3"
+ },
+ "reference_files": {
+  "data/raw/reference/collectri_regulons.tsv": "c9b622365dd09c6b76e44d6ca7a96f1982918ce6f2811f8fdeafa61fbd87cb50",
+  "data/raw/reference/omnipath_interactions.tsv": "bb516713f584eda4936e9f1fb07f8431dc63bae22f9395423d1e10874671f44f",
+  "data/raw/reference/reactome_interactions.txt": "a5ed8376d7da82b0dbfc6f0d243b422b2635482025b74e434d3b9be48cb55e5d",
+  "data/raw/reference/reactome_interactions.txt.gz": "b632932662913ff3d6df0b6fa3b3dbf14d700a7cb98c47d4a018d354e717a3ba"
+ },
+ "package_wheel_sha256": {
+  "anndata-0.11.4-py3-none-any.whl": "fefebb1480316dfa5a23924aa9f74781d447484421bb0c788b0b2ca5e3b339d2",
+  "h5py-3.16.0-cp310-cp310-manylinux_2_28_x86_64.whl": "8975273c2c5921c25700193b408e28d6bdd0111c37468b2d4e25dcec4cd1d84d",
+  "numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "fc7b73d02efb0e18c000e9ad8b83480dfcd5dfd11065997ed4c6747470ae8915",
+  "pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl": "dd7478f1463441ae4ca7308a70e90b33470fa593429f9d4c578dd00d1fa78838",
+  "scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl": "7a58814265dfc52b3295b1900cfb5701589d30a8bb026c7540f1e9d3499d5ec8",
+  "scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "9e2abc762b0811e09a0d3258abee2d98e0c703eee49464ce0069590846f31d40"
+ },
+ "project": "SP-008 (reused pinned stack from SP-007; identical environment)",
+ "heavyweight_ceiling_probe": {
+  "torch": "torch-2.14.0-cp310 wheel downloads (554MB) but import + GNN training exceeds the 1GB RAM ceiling of this sandbox - GEARS/torch_geometric-class methods DOCUMENTED AS COMPUTE CEILING, preserved-failure path",
+  "r1_method_family": "mature algebraic transfer methods trainable under the ceiling: ridge/kernel-ridge mapping, low-rank factorization across (target x context), k-NN transfer in target-response embedding; exact method + version pinned in R1 lock"
+ }
+}

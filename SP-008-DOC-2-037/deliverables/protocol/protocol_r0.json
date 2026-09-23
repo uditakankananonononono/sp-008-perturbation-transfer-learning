@@ -1,0 +1,26 @@
+{
+ "project": "SP-008 / DOC-2-037: Perturbation Transfer Learning",
+ "round": "R0 - deep open-data feasibility and grounding for cross-context AGGREGATE response prediction",
+ "frozen_at_ist": "2026-09-22T03:07:30+05:30",
+ "lineage": "follows SP-007 (DOC-2-033) negative result: discrete supported-edge transport failed across cell lines; this project targets a different estimand - predicting aggregate perturbation-response vectors across contexts. R1/R2 score thresholds are NOT reused as if they passed.",
+ "operational_user": "perturbation-biology or drug-discovery scientist prioritizing which perturbation-response measurements to make in a new cellular context",
+ "output_contract": "predictive performance estimates with uncertainty for aggregate response transfer; evidence-ranked candidates for measurement; never causal claims, never treatment advice",
+ "estimand_frozen": {
+  "unit": "perturbation target x context; response = aggregate pseudobulk log2 differential-expression vector vs matched non-targeting controls over shared measured genes",
+  "task_primary": "predict the response vector of a HELD-OUT perturbation target (unseen in every context) in each context, from other targets' responses across contexts",
+  "task_secondary": "predict the response vector of a known target in a HELD-OUT context",
+  "metrics": ["per-target Pearson correlation between predicted and observed response vector", "per-target R^2 vs context-mean baseline", "top-k response-gene recovery (k frozen at 50)", "calibration of predictive uncertainty"],
+  "splits": "by held-out target (primary), by held-out context (secondary); never random cells; leakage assertions mandatory",
+  "baselines": ["context-mean response (mean over training targets within context)", "cross-context mean response (mean over source contexts for the target, where available)", "ridge regression from source-context responses"],
+  "method_requirement": ">=1 mature transfer method beyond linear baselines, chosen and pinned in R1 under the environment ledger; compute ceilings documented as preserved failures",
+  "nulls": ["target-permuted", "expression-matched null genes", "shuffled perturbation labels"]
+ },
+ "feasibility_gates": {
+  "G1_contexts": ">=2 contexts (cell lines or condition axes) with openly licensed, checksum-verified perturbation data sharing >=50 perturbation targets AND matched non-targeting controls",
+  "G2_third_axis": ">=1 additional independent context pair or condition axis reachable with license+checksums, else recorded as absent (does not block)",
+  "G3_estimand_lock": "estimand, splits, metrics, baselines, nulls frozen in this protocol before any outcome inspection",
+  "G4_environment": "baseline stack pinned; heavyweight transfer frameworks probed with ceilings documented"
+ },
+ "r0_verdict_rule": "GO to R1 locked benchmark iff G1 AND G3 AND G4 pass; otherwise STOP at feasibility with audit preserved",
+ "abstentions": ["no causal graph claims", "no discrete-edge support transport claims", "cell-state claims abstained unless a supported design is preregistered", "no reuse of SP-007 tau/support thresholds"]
+}

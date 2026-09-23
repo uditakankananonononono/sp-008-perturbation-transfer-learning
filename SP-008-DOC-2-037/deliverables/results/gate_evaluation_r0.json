@@ -1,0 +1,36 @@
+{
+ "protocol_r0_sha256": "bd7e29df45f71f910ca169add726720d8fc421cd8659415c9cbafc57b90b93a8",
+ "gates": {
+  "G1_contexts": {
+   "pass": true,
+   "pair": "Replogle et al. 2022 genome-scale Perturb-seq: K562 essential vs RPE1 genome-wide screens",
+   "source": "scPerturb Zenodo record 10044268 (CC-BY-4.0), md5-verified in SP-007: K562 d8cba17576d1a8afc0f7d71b79cad0f7, RPE1 cc7f1ec50aeb3a3e1b4a6cfa713d80fa; canonical figshare.plus 20029387 v1 CC BY 4.0",
+   "shared_targets": 2055,
+   "controls": "10,691 K562 + 11,485 RPE1 NTC cells",
+   "floors": "shared targets 2055 >= 50"
+  },
+  "G2_third_axis": {
+   "pass": true,
+   "primary_third": "Frangieh et al. 2021 (melanoma ECCITE/CROP-seq RNA), Zenodo 10044268, md5 dc438f53c476a3dd562898654d48ed15 verified: 218,331 cells x 23,712 genes; condition axis perturbation_2 in {Control 15,361 NTC / IFN-gamma 23,910 NTC / Co-culture 18,334 NTC}; 248 targets, 229 with >=30 cells in ALL 3 conditions",
+   "extra": "DatlingerBock2021 Jurkat (md5 5cfbcb4770e9c859a07b2cc44fd12066 verified, 39,194 cells, 41 perturbations)"
+  },
+  "G3_estimand_lock": {
+   "pass": true,
+   "detail": "estimand, held-out-target primary split, held-out-context secondary split, metrics (Pearson, R^2 vs context-mean, top-50 recovery, calibration), baselines (context-mean, cross-context mean, ridge), nulls (target-permuted, expression-matched, shuffled labels) frozen in protocol before any outcome inspection"
+  },
+  "G4_environment": {
+   "pass": true,
+   "pinned": "python 3.10.12; anndata 0.11.4 / h5py 3.16.0 / scikit-learn 1.7.2 / numpy 2.2.6 / pandas 2.3.3 / scipy 1.15.3 with wheel sha256 (ledger inherited from SP-007)",
+   "ceiling": "torch 2.14.0 wheel downloads (554MB) but import + GNN training exceeds the 1GB RAM sandbox ceiling - GEARS-class GNN methods documented as compute ceiling (preserved-failure path); R1 method family: algebraic transfer (ridge/kernel-ridge, low-rank factorization, k-NN transfer) pinned in R1 lock"
+  }
+ },
+ "verdict": "GO to R1 locked benchmark",
+ "r1_handoff": [
+  "response-vector construction rule (pseudobulk vs matched controls per context) frozen before scoring",
+  "held-out-target primary split + leakage assertions",
+  "baselines then algebraic transfer method, all pinned",
+  "top-k=50 recovery, calibration, target bootstrap CIs",
+  "nulls per protocol",
+  "no SP-007 thresholds reused"
+ ]
+}

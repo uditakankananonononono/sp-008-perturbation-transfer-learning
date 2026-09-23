@@ -1,0 +1,46 @@
+{
+ "project": "SP-008 / DOC-2-037: Perturbation Transfer Learning",
+ "round": "R1 - locked cross-context aggregate response prediction benchmark",
+ "frozen_at_ist": "2026-09-22T03:11:45+05:30",
+ "r0_protocol_sha256": "bd7e29df45f71f910ca169add726720d8fc421cd8659415c9cbafc57b90b93a8",
+ "response_construction": {
+  "qc": "ngenes>=500, ncounts>=1000, percent_mito<=20; targeting cells nperts==1 and no '+'-named perturbation (multi-perturbation excluded from primary, retained as sensitivity); controls perturbation=='control' AND nperts==0",
+  "unit": "target x context; cells are replicates",
+  "inclusion": ">=30 QC-pass cells AND >=2 distinct construct-level guide_id values per (target x context); targets failing in any task-relevant context are ABSTAINED (predefined abstention), not imputed",
+  "pseudobulk": "pooled-count rate vs matched NTC control rate within the same context; control matching strata = obs batch column where present (Replogle), condition itself for Frangieh; log2((r_unit*1e6+1)/(r_ctl*1e6+1))",
+  "shared_genes": "exact gene_name match across the two contexts of a task; retain genes with control CPM>=1 in BOTH contexts; frozen list + hash before outcome inspection",
+  "gene_weights": "uniform (primary); variance-weighted sensitivity only",
+  "variance_filter_abstention": "targets whose response vector has per-target variance below the 5th percentile of the NTC-pool variance distribution in the destination context are ABSTAINED as low-variance (predefined)"
+ },
+ "tasks": {
+  "primary_held_out_target": {
+   "descriptor_frozen": "the target's source-context response vector ONLY (e.g. K562 response when predicting RPE1); no versioned sequence/annotation features are used; destination-context response of that target is never visible to fitting - leakage assertions mandatory",
+   "if_no_descriptor": "honest primary baseline is the destination context mean; if the descriptor channel fails, the arm closes rather than leaking source responses",
+   "evaluation": "5-fold held-out-target CV, frozen seed 20260922; no target in two folds"},
+  "secondary_held_out_context": {
+   "frangieh_rotations": "train {Control, Co-culture} -> IFN-gamma; train {Control, IFN-gamma} -> Co-culture; train {IFN-gamma, Co-culture} -> Control",
+   "replogle_directions": "K562->RPE1 and RPE1->K562 (both required)",
+   "rule": "no target-context pair crosses folds"}}
+ ,
+ "models_frozen": ["context mean (destination-context mean response over training targets)",
+   "cross-context mean (source response vector passthrough)",
+   "ridge per destination gene on source response vector (alpha nested)",
+   "kernel ridge RBF (alpha, gamma nested within training targets only)",
+   "low-rank factorization: rank-k SVD of training response matrices, k in {5,10,20} nested",
+   "k-NN transfer in source-response space, k in {3,5,10} nested"],
+ "gates": {
+  "G1_freeze": "cohorts, shared-gene lists, folds frozen with manifest + hashes before scoring",
+  "G2_identifiability": "descriptor channel verified; leakage assertions pass (no destination response in any fit input)",
+  "G3_accuracy": "per-target Pearson AND R^2 beat context-mean, cross-context-mean AND ridge baselines with target-bootstrap 95% CI excluding the best baseline, in BOTH Replogle directions AND >=1 Frangieh held-condition rotation",
+  "G4_top50": "top-50 destination response-gene recovery beats expression-matched and target-permuted null 95th percentiles",
+  "G5_calibration": "90% predictive intervals (target-bootstrap residual quantiles) achieve empirical coverage within [0.80, 0.97]",
+  "G6_reproducibility": "independent rerun reproduces identical sha256 of the prediction file",
+  "G7_jurkat_bonus": "Jurkat usable only if overlap/support passes this pre-outcome gate: >=20 shared targets with >=30 cells AND >=2 constructs; else excluded and recorded"
+ },
+ "reporting": ["effect-size distribution (median + IQR + full deciles), never mean alone",
+   "abstention classes reported: low-variance, missing descriptor, unsupported target",
+   "SP-007 negative transport evidence preserved and cited",
+   "Frangieh reported as an independent condition axis, NOT independent lab replication of the cell-line task"],
+ "product_output": "measurement-priority estimates with uncertainty + information-gain proxy (predicted |response| mass times interval width reduction); never causal or treatment claims; compute/runtime, reviewer protocol, licenses, monitoring, rollback sections required",
+ "arm_closure": "if held-target prediction lacks a valid pre-intervention descriptor or fails baseline superiority, close that arm; continue held-context under its separate evaluation"
+}

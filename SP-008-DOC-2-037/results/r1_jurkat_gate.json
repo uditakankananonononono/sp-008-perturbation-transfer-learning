@@ -1,0 +1,31 @@
+{
+ "jurkat_genes": [
+  "DOK2",
+  "EGR1",
+  "EGR2",
+  "EGR3",
+  "EGR4",
+  "FOS",
+  "JUN",
+  "JUND",
+  "LAT",
+  "LCK",
+  "NFAT5",
+  "NFATC1",
+  "NFKB1",
+  "NFKB2",
+  "NR4A1",
+  "PTPN11",
+  "PTPN6",
+  "RELA",
+  "RUNX2",
+  "ZAP70",
+  "control"
+ ],
+ "shared_targets_with_cells": 0,
+ "qualifying_threshold": ">=30 cells AND >=2 constructs",
+ "qualifying_count": 0,
+ "qualifying_targets": [],
+ "per_target_detail": {},
+ "verdict": "EXCLUDED"
+}

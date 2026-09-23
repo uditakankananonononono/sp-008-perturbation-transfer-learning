@@ -1,0 +1,16 @@
+{
+ "targets_any_cells_all3_conditions": 248,
+ "targets_>=30cells_all3": 229,
+ "control_cells_per_condition": {
+  "Co-culture": 18334,
+  "Control": 15361,
+  "IFN\u03b3": 23910
+ },
+ "n_conditions": 3,
+ "conditions": [
+  "Co-culture",
+  "Control",
+  "IFN\u03b3"
+ ],
+ "total_targets": 248
+}
